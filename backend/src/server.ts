@@ -49,7 +49,7 @@ const validInterviews: { [code: string]: InterviewSession } = {
     "TEST123": { // Example code
         code: "TEST123",
         // Correct path relative to the *project root* after deployment
-        systemPromptPath: path.join(__dirname, '../../../../interviewerSystemPrompt.md'), // Path from /var/www/uniqpick4/backend/dist/server.js up to project root and then to the file
+        systemPromptPath: path.join(__dirname, '../../../interviewerSystemPrompt.md'), // Path from /var/www/uniqpick4/backend/dist/server.js up 3 levels to project root
         config: {
             endpoint: process.env.AZURE_OPENAI_ENDPOINT!,
             apiKey: process.env.AZURE_OPENAI_KEY!,
