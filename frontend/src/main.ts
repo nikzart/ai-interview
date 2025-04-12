@@ -347,7 +347,8 @@ async function uploadInterviewData(recordingBlob: Blob, transcription: string) {
     formData.append('recording', recordingBlob, `${currentInterviewConfig.code}-recording.webm`); // Provide a filename
     formData.append('transcription', transcription);
 
-    const uploadUrl = `http://localhost:3000/api/interview/${currentInterviewConfig.code}/complete`;
+    // Use relative path for API call
+    const uploadUrl = `/api/interview/${currentInterviewConfig.code}/complete`;
 
     // --- Add Frontend Logging ---
     console.log("Attempting upload to URL:", uploadUrl);
@@ -531,7 +532,8 @@ joinButtonElement.addEventListener("click", async () => {
     // --- Actual Backend API Call ---
     try {
         // Assuming backend runs on port 3000 (adjust if different)
-        const response = await fetch(`http://localhost:3000/api/interview/${code}/config`);
+        // Use relative path for API call
+        const response = await fetch(`/api/interview/${code}/config`);
 
         if (response.ok) {
             const fetchedConfig = await response.json();
