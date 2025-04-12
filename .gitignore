@@ -1,0 +1,13 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+
+# Sensitive backend environment file
+backend/.env
+
+# Recordings (assuming these shouldn't be committed)
+backend/recordings/

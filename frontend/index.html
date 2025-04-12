@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniqPick4 - AI Interview Platform</title>
+  <!-- Link to Google Fonts (Inter) - Replace if using a different font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Main CSS file (includes Tailwind) -->
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-brand-bg min-h-screen flex items-center justify-center p-4 font-sans antialiased">
+  <div id="app" class="w-full max-w-6xl mx-auto">
+
+    <!-- Join Screen -->
+    <div id="join-screen" class="bg-brand-surface rounded-2xl shadow-xl p-8 md:p-10 max-w-md mx-auto text-center transition-opacity duration-300 ease-in-out">
+      <h1 class="text-3xl font-bold mb-2 text-brand-primary">UniqPick4</h1>
+      <p class="text-brand-text-secondary mb-6">AI-Powered Interviews</p>
+      <h2 class="text-xl font-semibold mb-4 text-brand-text-primary">Join Interview</h2>
+      <div class="mb-4 text-left">
+        <label for="interview-code" class="block text-sm font-medium text-brand-text-secondary mb-2">Interview Code</label>
+        <input type="text" id="interview-code" placeholder="Enter interview code"
+               class="w-full px-4 py-2.5 border border-brand-border rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent transition duration-150 ease-in-out placeholder-gray-400" />
+      </div>
+      <button id="join-button" type="button"
+              class="w-full bg-brand-primary text-white font-semibold py-2.5 px-4 rounded-lg hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed shadow-sm">
+        Join
+      </button>
+      <p id="join-error" class="text-red-500 text-sm mt-4" style="display: none;"></p>
+    </div>
+
+    <!-- Interview Screen (Initially Hidden) -->
+    <div id="interview-screen" class="bg-brand-surface rounded-2xl shadow-xl p-6 md:p-8 w-full transition-opacity duration-300 ease-in-out hidden"> <!-- Remove inline style, add hidden class -->
+      <div class="flex justify-between items-center mb-6 border-b border-brand-border pb-4">
+        <h1 class="text-2xl font-bold text-brand-primary">UniqPick4 Interview</h1>
+        <div class="text-right">
+           <p class="text-sm text-brand-text-secondary">Time Remaining</p>
+           <span id="timer" class="text-xl font-semibold text-brand-text-primary">15:00</span>
+        </div>
+      </div>
+
+      <!-- Dual Pane Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+
+        <!-- Left Pane: Video & Controls -->
+        <!-- Left Pane: Video & Controls - More distinct background -->
+        <div class="md:col-span-1 bg-gray-100/80 rounded-xl p-4 flex flex-col space-y-4 border border-brand-border/50">
+           <h3 class="text-lg font-semibold text-brand-text-primary mb-2 text-center">Candidate</h3>
+           <div class="aspect-video bg-black rounded-lg overflow-hidden flex items-center justify-center shadow-inner">
+             <!-- Video element will fill this container -->
+             <video id="user-video" autoplay playsinline muted class="w-full h-full object-cover"></video>
+           </div>
+           <div class="flex justify-center space-x-4 pt-4">
+              <!-- Using Tailwind for button styling -->
+              <button id="start-interview" type="button"
+                      class="bg-green-500 text-white font-medium py-2 px-5 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed shadow-sm">
+                Start
+              </button>
+              <button id="stop-interview" type="button" disabled="true"
+                      class="bg-red-500 text-white font-medium py-2 px-5 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed shadow-sm">
+                End
+              </button>
+           </div>
+           <!-- Guidelines Section -->
+           <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-700 space-y-1">
+               <p><strong>Guidelines:</strong></p>
+               <ul class="list-disc list-inside pl-2">
+                   <li>Ensure you are in a quiet environment.</li>
+                   <li>Speak clearly into your microphone.</li>
+                   <li>The interview has a time limit of 15 minutes.</li>
+                   <li>Click "End" when you are finished.</li>
+               </ul>
+           </div>
+        </div>
+
+        <!-- Right Pane: Transcription -->
+        <!-- Right Pane: Transcription - Slightly different background -->
+        <div class="md:col-span-2 bg-gray-50/70 rounded-xl p-4 flex flex-col border border-brand-border/50">
+          <h3 class="text-lg font-semibold text-brand-text-primary mb-3 border-b border-brand-border pb-2">Conversation</h3>
+          <div id="transcription-container" class="flex-grow overflow-y-auto space-y-3 text-sm pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+            <!-- Transcription will appear here -->
+            <div id="received-text-container" class="space-y-3">
+               <!-- Placeholder structure for messages -->
+               <!-- Example structure for styled messages -->
+               <!-- <p class="p-2 rounded-lg bg-blue-50"><strong class="font-semibold text-brand-primary">AI:</strong> Welcome to the interview!</p> -->
+               <!-- <p class="p-2 rounded-lg bg-green-50"><strong class="font-semibold text-brand-secondary">User:</strong> Thank you.</p> -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- End Screen (Initially Hidden) -->
+    <div id="end-screen" class="bg-brand-surface rounded-2xl shadow-xl p-8 md:p-10 max-w-md mx-auto text-center hidden">
+       <h1 class="text-2xl font-bold mb-4 text-brand-primary">Interview Complete</h1>
+       <p id="end-message" class="text-brand-text-secondary mb-6">Thank you for completing the interview. Your recording and transcription are being processed.</p>
+       <!-- Optional: Add a button to close or redirect -->
+       <!-- <button id="close-button" class="mt-4 bg-gray-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-gray-600">Close</button> -->
+    </div>
+
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
