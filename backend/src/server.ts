@@ -64,7 +64,8 @@ const validInterviews: { [code: string]: InterviewSession } = {
 // --- API Routes ---
 
 // Endpoint to validate interview code and get configuration
-app.get('/api/interview/:code/config', async (req: Request, res: Response): Promise<void> => { // Add explicit return type
+// Match the path passed by Nginx proxy (without /api/)
+app.get('/interview/:code/config', async (req: Request, res: Response): Promise<void> => {
     const { code } = req.params;
     const interview = validInterviews[code];
 
@@ -92,7 +93,8 @@ app.get('/api/interview/:code/config', async (req: Request, res: Response): Prom
 });
 
 // Endpoint to receive recording and transcription upon completion
-app.post('/api/interview/:code/complete', upload.single('recording'), async (req: Request, res: Response): Promise<void> => {
+// Match the path passed by Nginx proxy (without /api/)
+app.post('/interview/:code/complete', upload.single('recording'), async (req: Request, res: Response): Promise<void> => {
     const { code } = req.params;
     const { transcription } = req.body;
     const recordingFile = req.file;
