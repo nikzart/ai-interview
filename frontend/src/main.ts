@@ -394,7 +394,7 @@ const startInterviewButton = document.querySelector<HTMLButtonElement>("#start-i
 const stopInterviewButton = document.querySelector<HTMLButtonElement>("#stop-interview")!;
 const transcriptionContainer = document.querySelector<HTMLDivElement>("#transcription-container")!; // Target the container div itself
 
-let latestInputSpeechBlock: Element;
+// let latestInputSpeechBlock: Element; // Removed unused variable
 
 // --- New UI State Enum ---
 enum UIState {
