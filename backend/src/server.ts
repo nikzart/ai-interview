@@ -46,8 +46,8 @@ interface InterviewSession {
 // Placeholder: Store valid interview codes and their associated prompts
 // We'll use the interviewerSystemPrompt.md provided earlier
 const validInterviews: { [code: string]: InterviewSession } = {
-    "TEST123": { // Example code
-        code: "TEST123",
+    "ANS459": { // Example code
+        code: "ANS459",
         // Correct path relative to the *project root* after deployment (file is now inside UniqPick4)
         systemPromptPath: path.join(__dirname, '../../interviewerSystemPrompt.md'), // Path from /var/www/uniqpick4/backend/dist/ up 2 levels to project root
         config: {
